@@ -1,0 +1,15 @@
+graphite:
+  image: mosquito/graphite:latest
+  ports:
+    - "81:80"
+    - "2003:2003"
+    - "2003:2003/udp"
+    - "20000:20000"
+
+grafana:
+  image: mosquito/grafana:latest
+  ports:
+    - "80:80"
+  volumes:
+    - "/tmp/storage:/opt/graphite/storage"
+    - "/tmp/logs:/var/log/supervisor"

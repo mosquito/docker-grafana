@@ -28,21 +28,8 @@ ENV ADMIN_USER=admin \
     ALLOW_SIGNUP=true \
     ORGANIZATION_NAME="Eample Inc."
 
-COPY configs/local_settings.py /opt/graphite/webapp/graphite/local_settings.py
-COPY configs/graphite/*.conf /opt/graphite/conf/
-
-# config nginx
-COPY configs/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY configs/nginx/graphite.conf /etc/nginx/sites-enabled/graphite.conf
-
-COPY configs/statsd/config.js /opt/statsd/config.js
-
-COPY configs/supervisor/supervisord.conf /etc/supervisord.conf
-COPY configs/supervisor/*.ini /etc/supervisord.d/
-
 # add templates
 RUN mkdir -p /etc/templates
-COPY configs/scripts/django_admin_init.exp /etc/templates/django_admin_init.exp.j2
 COPY configs/grafana.ini /etc/templates/grafana.j2
 
 # start.sh
@@ -50,7 +37,7 @@ COPY configs/start.sh /usr/local/bin/start.sh
 RUN chmod a+x /usr/local/bin/start.sh
 
 # defaults
-EXPOSE 80:80 2003:2003 2003:2003/udp 8125:8125/udp
-VOLUME [ "/opt/graphite/storage", "/opt/statsd", "/var/log", "/var/log/supervisor", "/var/lib/grafana" ]
+EXPOSE 80:80
+VOLUME [ "/var/lib/grafana" ]
 
 CMD ["/usr/local/bin/start.sh"]
