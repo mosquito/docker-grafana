@@ -1,0 +1,16 @@
+/env
+/venv
+/.idea/
+*.py[co]
+*.log
+.*
+*.tmp
+*.bak
+.DS_Store
+cache/*
+build/
+*.egg-info
+*.dump
+/dump*.*
+/*.profile
+*~
