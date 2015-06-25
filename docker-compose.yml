@@ -4,12 +4,17 @@ graphite:
     - "81:80"
     - "2003:2003"
     - "2003:2003/udp"
-    - "20000:20000"
+  volumes:
+    - "/tmp/graphite:/opt/graphite/storage"
+    - "/tmp/graphite:/var/log/supervisor"
 
 grafana:
   image: mosquito/grafana:latest
   ports:
     - "80:80"
   volumes:
-    - "/tmp/storage:/opt/graphite/storage"
-    - "/tmp/logs:/var/log/supervisor"
+    - "/tmp/grafana:/var/lib/grafana"
+  environment:
+    ADMIN_USER: "admin"
+    ADMIN_PASSWORD: "admin"
+    ALLOW_SIGNUP: "false"
